@@ -127,6 +127,7 @@ deprecated/
 benchmarks/competitors/
 benchmarks/*/node_modules/
 benchmarks/*/.git/
+**/competitors/**
 
 # Python virtual environments
 venv/
