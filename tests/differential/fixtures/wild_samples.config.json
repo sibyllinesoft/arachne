@@ -1,0 +1,304 @@
+{
+  "testSuite": "ArachneJS Wild Samples Differential Tests",
+  "version": "1.0.0",
+  "description": "Real-world obfuscated JavaScript samples collected from various sources for robustness testing",
+  "testCases": [
+    {
+      "name": "wild_string_array_basic",
+      "description": "Wild sample with string array obfuscation pattern",
+      "bytecodeFile": "./corpus/wild_samples/wild_sample_000.js",
+      "expectedFormat": "javascript",
+      "timeout": 15000,
+      "tags": ["wild", "string-array", "basic", "real-world"],
+      "classification": {
+        "primary_technique": "string_array_obfuscation",
+        "confidence": 0.85,
+        "difficulty": "medium"
+      },
+      "expectedBehavior": {
+        "shouldParse": true,
+        "shouldLift": true,
+        "expectedOptimizationGains": 0.4,
+        "criticalPaths": ["string_decoding", "array_access"]
+      },
+      "performanceBaseline": {
+        "parseTimeMs": 150,
+        "liftTimeMs": 300,
+        "memoryUsageMB": 25,
+        "irNodeCount": 75,
+        "timestamp": "2024-01-15T00:00:00Z"
+      }
+    },
+    {
+      "name": "wild_control_flow_flattening",
+      "description": "Wild sample with control flow flattening",
+      "bytecodeFile": "./corpus/wild_samples/wild_sample_001.js",
+      "expectedFormat": "javascript",
+      "timeout": 30000,
+      "tags": ["wild", "control-flow", "flattening", "switch-dispatch"],
+      "classification": {
+        "primary_technique": "control_flow_flattening",
+        "confidence": 0.92,
+        "difficulty": "hard"
+      },
+      "expectedBehavior": {
+        "shouldParse": true,
+        "shouldLift": true,
+        "expectedOptimizationGains": 0.6,
+        "criticalPaths": ["switch_analysis", "cfg_reconstruction", "dispatcher_elimination"]
+      },
+      "performanceBaseline": {
+        "parseTimeMs": 300,
+        "liftTimeMs": 800,
+        "memoryUsageMB": 45,
+        "irNodeCount": 200,
+        "timestamp": "2024-01-15T00:00:00Z"
+      }
+    },
+    {
+      "name": "wild_vm_obfuscation",
+      "description": "Wild sample with VM-based obfuscation",
+      "bytecodeFile": "./corpus/wild_samples/wild_sample_002.js",
+      "expectedFormat": "javascript",
+      "timeout": 45000,
+      "tags": ["wild", "vm-obfuscation", "bytecode", "virtualization"],
+      "classification": {
+        "primary_technique": "vm_based_obfuscation",
+        "confidence": 0.88,
+        "difficulty": "very_hard"
+      },
+      "expectedBehavior": {
+        "shouldParse": true,
+        "shouldLift": true,
+        "expectedOptimizationGains": 0.7,
+        "criticalPaths": ["vm_detection", "bytecode_lifting", "devirtualization"]
+      },
+      "performanceBaseline": {
+        "parseTimeMs": 500,
+        "liftTimeMs": 2000,
+        "memoryUsageMB": 80,
+        "irNodeCount": 400,
+        "timestamp": "2024-01-15T00:00:00Z"
+      }
+    },
+    {
+      "name": "wild_mixed_techniques",
+      "description": "Wild sample combining multiple obfuscation techniques",
+      "bytecodeFile": "./corpus/wild_samples/wild_sample_003.js",
+      "expectedFormat": "javascript",
+      "timeout": 60000,
+      "tags": ["wild", "mixed", "complex", "multi-layer"],
+      "classification": {
+        "primary_technique": "mixed_techniques",
+        "secondary_techniques": ["string_array_obfuscation", "identifier_renaming", "dead_code_insertion"],
+        "confidence": 0.75,
+        "difficulty": "very_hard"
+      },
+      "expectedBehavior": {
+        "shouldParse": true,
+        "shouldLift": true,
+        "expectedOptimizationGains": 0.5,
+        "criticalPaths": ["multi_pass_analysis", "layered_deobfuscation", "semantic_preservation"]
+      },
+      "performanceBaseline": {
+        "parseTimeMs": 400,
+        "liftTimeMs": 1500,
+        "memoryUsageMB": 60,
+        "irNodeCount": 300,
+        "timestamp": "2024-01-15T00:00:00Z"
+      }
+    },
+    {
+      "name": "wild_eval_heavy",
+      "description": "Wild sample with heavy eval usage and dynamic code",
+      "bytecodeFile": "./corpus/wild_samples/wild_sample_004.js",
+      "expectedFormat": "javascript",
+      "timeout": 30000,
+      "tags": ["wild", "eval", "dynamic", "runtime-generation"],
+      "classification": {
+        "primary_technique": "eval_patterns",
+        "confidence": 0.93,
+        "difficulty": "hard"
+      },
+      "expectedBehavior": {
+        "shouldParse": true,
+        "shouldLift": "partial",
+        "expectedOptimizationGains": 0.3,
+        "criticalPaths": ["dynamic_analysis", "eval_tracking", "runtime_behavior"]
+      },
+      "performanceBaseline": {
+        "parseTimeMs": 250,
+        "liftTimeMs": 600,
+        "memoryUsageMB": 35,
+        "irNodeCount": 120,
+        "timestamp": "2024-01-15T00:00:00Z"
+      }
+    },
+    {
+      "name": "wild_minified_obfuscated",
+      "description": "Wild sample that's both minified and obfuscated",
+      "bytecodeFile": "./corpus/wild_samples/wild_sample_005.js",
+      "expectedFormat": "javascript",
+      "timeout": 20000,
+      "tags": ["wild", "minified", "identifier-renaming", "compressed"],
+      "classification": {
+        "primary_technique": "identifier_renaming",
+        "confidence": 0.68,
+        "difficulty": "medium"
+      },
+      "expectedBehavior": {
+        "shouldParse": true,
+        "shouldLift": true,
+        "expectedOptimizationGains": 0.4,
+        "criticalPaths": ["identifier_recovery", "structure_analysis", "scope_resolution"]
+      },
+      "performanceBaseline": {
+        "parseTimeMs": 100,
+        "liftTimeMs": 250,
+        "memoryUsageMB": 20,
+        "irNodeCount": 80,
+        "timestamp": "2024-01-15T00:00:00Z"
+      }
+    },
+    {
+      "name": "wild_dead_code_heavy",
+      "description": "Wild sample with extensive dead code insertion",
+      "bytecodeFile": "./corpus/wild_samples/wild_sample_006.js",
+      "expectedFormat": "javascript",
+      "timeout": 25000,
+      "tags": ["wild", "dead-code", "bogus-constructs", "noise"],
+      "classification": {
+        "primary_technique": "dead_code_insertion",
+        "confidence": 0.81,
+        "difficulty": "medium"
+      },
+      "expectedBehavior": {
+        "shouldParse": true,
+        "shouldLift": true,
+        "expectedOptimizationGains": 0.8,
+        "criticalPaths": ["dead_code_elimination", "reachability_analysis", "optimization_passes"]
+      },
+      "performanceBaseline": {
+        "parseTimeMs": 200,
+        "liftTimeMs": 400,
+        "memoryUsageMB": 30,
+        "irNodeCount": 150,
+        "timestamp": "2024-01-15T00:00:00Z"
+      }
+    }
+  ],
+  "globalSettings": {
+    "defaultTimeout": 30000,
+    "maxMemoryUsageMB": 200,
+    "enablePerformanceTracking": true,
+    "enableSemanticValidation": true,
+    "goldenFileUpdateMode": false,
+    "enableRegressionDetection": true,
+    "wildcardSampleMode": true
+  },
+  "wildSampleSettings": {
+    "corpusDirectory": "./tests/corpus/wild_samples",
+    "metadataFile": "./tests/corpus/wild_samples/samples_metadata.json",
+    "autoClassificationThreshold": 0.6,
+    "difficultyLevels": {
+      "easy": {
+        "timeoutMs": 15000,
+        "memoryLimitMB": 50,
+        "expectedSuccessRate": 0.95
+      },
+      "medium": {
+        "timeoutMs": 30000,
+        "memoryLimitMB": 100,
+        "expectedSuccessRate": 0.85
+      },
+      "hard": {
+        "timeoutMs": 45000,
+        "memoryLimitMB": 150,
+        "expectedSuccessRate": 0.70
+      },
+      "very_hard": {
+        "timeoutMs": 60000,
+        "memoryLimitMB": 200,
+        "expectedSuccessRate": 0.50
+      }
+    },
+    "qualityGates": {
+      "minimumSamples": 10,
+      "minimumDiversity": 0.7,
+      "maximumFailureRate": 0.3,
+      "minimumOptimizationGain": 0.2
+    }
+  },
+  "obfuscationTargets": {
+    "supportedTechniques": [
+      "string_array_obfuscation",
+      "control_flow_flattening", 
+      "vm_based_obfuscation",
+      "dead_code_insertion",
+      "identifier_renaming",
+      "eval_patterns",
+      "mixed_techniques"
+    ],
+    "minimumSuccessRate": 0.60,
+    "targetOptimization": {
+      "string_array": 0.7,
+      "control_flow": 0.6,
+      "vm_obfuscation": 0.5,
+      "dead_code": 0.8,
+      "identifier_renaming": 0.4,
+      "eval_patterns": 0.3
+    },
+    "knownObfuscators": [
+      "javascript-obfuscator",
+      "jfuscator", 
+      "jscrambler",
+      "webpack-obfuscator",
+      "terser",
+      "uglifyjs",
+      "closure-compiler"
+    ]
+  },
+  "validationCriteria": {
+    "syntaxValidation": {
+      "enabled": true,
+      "strictMode": true,
+      "allowSyntaxErrors": false
+    },
+    "semanticValidation": {
+      "enabled": true,
+      "requireBehaviorPreservation": true,
+      "allowPartialOptimization": true
+    },
+    "performanceValidation": {
+      "enabled": true,
+      "maxRegressionPercent": 20,
+      "trackMemoryUsage": true,
+      "profileExecutionTime": true
+    }
+  },
+  "integrationSettings": {
+    "differentialFramework": {
+      "enabled": true,
+      "goldenFileGeneration": false,
+      "semanticEquivalenceThreshold": 0.8
+    },
+    "continuousIntegration": {
+      "runOnPullRequest": true,
+      "runOnMerge": true,
+      "failOnRegression": true,
+      "reportDetailLevel": "detailed"
+    },
+    "corpusManagement": {
+      "autoUpdate": false,
+      "versionTracking": true,
+      "backupRetention": 30
+    }
+  },
+  "reportingConfig": {
+    "generateDetailedReport": true,
+    "includePerformanceMetrics": true,
+    "includeClassificationDetails": true,
+    "outputFormat": ["json", "html"],
+    "reportDirectory": "./artifacts/wild_sample_reports"
+  }
+}

@@ -1,0 +1,135 @@
+name: Performance Benchmarks
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'src/**'
+      - 'benchmarks/**'
+      - 'scripts/run-benchmarks.ts'
+      - 'package.json'
+      - 'tsconfig.json'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'src/**'
+      - 'benchmarks/**'
+      - 'scripts/run-benchmarks.ts'
+      - 'package.json'
+      - 'tsconfig.json'
+  schedule:
+    # Run benchmarks daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  benchmarks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build project
+        run: bun run build
+
+      - name: Run type check
+        run: bun run type-check
+
+      - name: Run benchmarks
+        id: benchmarks
+        run: |
+          echo "Running performance benchmarks..."
+          bun run benchmark:json
+          echo "benchmark_status=$?" >> $GITHUB_OUTPUT
+
+      - name: Generate markdown report
+        if: always()
+        run: |
+          bun run benchmark:report
+          
+      - name: Upload benchmark results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: |
+            benchmark-results.json
+            benchmark-report.md
+          retention-days: 30
+
+      - name: Display benchmark summary
+        if: always()
+        run: |
+          echo "## 📊 Benchmark Results Summary" >> $GITHUB_STEP_SUMMARY
+          if [ -f benchmark-report.md ]; then
+            # Extract key metrics from the report
+            echo "" >> $GITHUB_STEP_SUMMARY
+            grep -A 10 "## Overall Assessment" benchmark-report.md >> $GITHUB_STEP_SUMMARY || true
+            echo "" >> $GITHUB_STEP_SUMMARY
+            grep -A 10 "## Performance Targets Assessment" benchmark-report.md >> $GITHUB_STEP_SUMMARY || true
+          else
+            echo "❌ Benchmark report not generated" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Comment PR with benchmark results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            let comment = '## 📊 Performance Benchmark Results\n\n';
+            
+            try {
+              if (fs.existsSync('benchmark-report.md')) {
+                const report = fs.readFileSync('benchmark-report.md', 'utf8');
+                
+                // Extract summary sections
+                const overallMatch = report.match(/## Overall Assessment[\s\S]*?(?=\n##|\n---|\Z)/);
+                const targetsMatch = report.match(/## Performance Targets Assessment[\s\S]*?(?=\n##|\n---|\Z)/);
+                
+                if (overallMatch) {
+                  comment += overallMatch[0] + '\n\n';
+                }
+                
+                if (targetsMatch) {
+                  comment += targetsMatch[0] + '\n\n';
+                }
+                
+                comment += '📁 **Full benchmark report available in the [workflow artifacts](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})**\n';
+              } else {
+                comment += '❌ Benchmark execution failed. Check the workflow logs for details.\n';
+              }
+            } catch (error) {
+              comment += `❌ Error reading benchmark results: ${error.message}\n`;
+            }
+            
+            // Check if this is a benchmark failure
+            const benchmarkStatus = '${{ steps.benchmarks.outputs.benchmark_status }}';
+            if (benchmarkStatus !== '0') {
+              comment += '\n⚠️ **Performance targets were not met. Review the results above.**\n';
+            }
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Fail if performance targets not met
+        if: steps.benchmarks.outputs.benchmark_status != '0'
+        run: |
+          echo "❌ Performance benchmarks failed to meet targets"
+          echo "Review the benchmark report for details"
+          exit 1

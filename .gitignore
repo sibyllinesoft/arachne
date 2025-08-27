@@ -1,0 +1,151 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Coverage and test reports
+coverage/
+.coverage
+.coverage.*
+.nyc_output/
+reports/
+test-results/
+playwright-report/
+.stryker-tmp/
+stryker.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime and temp files
+*.pid
+*.seed
+*.pid.lock
+.tmp/
+.temp/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Docker
+.docker/
+
+# Generated artifacts and outputs
+artifacts/metrics/*
+artifacts/boot_transcript.json
+!artifacts/.gitkeep
+output/
+generated/
+
+# Analysis reports and temporary files
+*-analysis-*.json
+*-analysis-*.md
+*ANALYSIS*.md
+*REPORT*.md
+*SUMMARY*.md
+*TODO*.md
+analysis/output/
+analysis/reports/
+
+# Z3 and SMT solver artifacts
+*.smt2
+*.z3
+
+# QuickJS bytecode and artifacts
+*.qbc
+*.quickjs
+
+# Sandbox execution artifacts
+sandbox_output/
+execution_traces/
+
+# Temporary and demo files
+demo-*.js
+test-*.js
+debug-*.js
+*-demo.js
+*-test.js
+*-debug.js
+
+# Corpus and test data (exclude large binary files)
+tests/corpus/binaries/
+tests/corpus/large/
+*.obf.js
+
+# UI build artifacts
+ui/dist/
+ui/build/
+ui/node_modules/
+
+# System files
+.lock-wscript
+.wafpickle-*
+
+# Temporary patch files
+*.orig
+*.rej
+
+# Package managers
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+# Repository maintenance
+.repomixignore
+repomix.config.json
+
+# Archive and deprecated content
+archive/
+deprecated/
+
+# Competitor repositories and external tools
+benchmarks/competitors/
+benchmarks/*/node_modules/
+benchmarks/*/.git/
+
+# Python virtual environments
+venv/
+env/
+ENV/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# mypy cache
+.mypy_cache/
+.dmypy.json
+
+# Pytest cache
+.pytest_cache/
+
+# Profiling data
+*.prof
+*.lprofoutput/
+
+.serena/
+*.map

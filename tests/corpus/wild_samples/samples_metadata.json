@@ -1,0 +1,192 @@
+[
+  {
+    "filename": "wild_sample_000_d5099032.js",
+    "hash": "d50990325eb8e48a45934f3202d81efad05e0e44628da9ca6a78b0465ee69b0f",
+    "size": 165,
+    "classification": {
+      "techniques": {
+        "string_array_obfuscation": {
+          "score": 0.4,
+          "matches": 4,
+          "description": "String array with encoded/encrypted strings",
+          "examples": [
+            "_0xc4f8[0x0]",
+            "_0xc4f8[0x1]",
+            "_0xc4f8[0x4]"
+          ]
+        },
+        "identifier_renaming": {
+          "score": 0.2,
+          "matches": 2,
+          "description": "Systematic identifier obfuscation",
+          "examples": [
+            "_0xc4f8",
+            "_0x1234"
+          ]
+        }
+      },
+      "overall_score": 0.6000000000000001,
+      "is_obfuscated": true,
+      "confidence": 0.6000000000000001,
+      "patterns_detected": [
+        "string_array_obfuscation",
+        "identifier_renaming"
+      ]
+    },
+    "source_metadata": {
+      "source": "synthetic",
+      "sample_id": "synthetic_000",
+      "generated_at": 1756060211.2469685,
+      "description": "Synthetic sample demonstrating obfuscation pattern #0"
+    },
+    "source_url": null
+  },
+  {
+    "filename": "wild_sample_001_b19092e5.js",
+    "hash": "b19092e50eec680c191465cca5b5ba9d6d4d5e3cc8c75892f80441bc9d52bf48",
+    "size": 320,
+    "classification": {
+      "techniques": {
+        "string_array_obfuscation": {
+          "score": 0.1,
+          "matches": 1,
+          "description": "String array with encoded/encrypted strings",
+          "examples": [
+            "_0x1234[_0x5678++]"
+          ]
+        },
+        "control_flow_flattening": {
+          "score": 0.1,
+          "matches": 1,
+          "description": "Control flow flattening with switch dispatcher",
+          "examples": [
+            "_0x1234[_0x5678++]"
+          ]
+        },
+        "identifier_renaming": {
+          "score": 0.1,
+          "matches": 1,
+          "description": "Systematic identifier obfuscation",
+          "examples": [
+            "_0x1234"
+          ]
+        }
+      },
+      "overall_score": 0.4,
+      "is_obfuscated": true,
+      "confidence": 0.4,
+      "patterns_detected": [
+        "string_array_obfuscation",
+        "control_flow_flattening",
+        "identifier_renaming"
+      ]
+    },
+    "source_metadata": {
+      "source": "synthetic",
+      "sample_id": "synthetic_001",
+      "generated_at": 1756060211.2471492,
+      "description": "Synthetic sample demonstrating obfuscation pattern #1"
+    },
+    "source_url": null
+  },
+  {
+    "filename": "wild_sample_002_7657048a.js",
+    "hash": "7657048a9aaf562c9582091ec98ae3d86d4b6dc7cda7a69f01b37e35518d24f9",
+    "size": 332,
+    "classification": {
+      "techniques": {
+        "vm_based_obfuscation": {
+          "score": 0.1,
+          "matches": 1,
+          "description": "Virtual machine with bytecode execution",
+          "examples": [
+            "function vm("
+          ]
+        }
+      },
+      "overall_score": 0.4,
+      "is_obfuscated": true,
+      "confidence": 0.4,
+      "patterns_detected": [
+        "vm_based_obfuscation"
+      ]
+    },
+    "source_metadata": {
+      "source": "synthetic",
+      "sample_id": "synthetic_002",
+      "generated_at": 1756060211.2473052,
+      "description": "Synthetic sample demonstrating obfuscation pattern #2"
+    },
+    "source_url": null
+  },
+  {
+    "filename": "wild_sample_003_1e2a2192.js",
+    "hash": "1e2a219276f79da3b288e24bdf0eb011e493c345f68bbb9339436aa49d7cd267",
+    "size": 187,
+    "classification": {
+      "techniques": {
+        "dead_code_insertion": {
+          "score": 0.2,
+          "matches": 2,
+          "description": "Dead code and bogus constructs",
+          "examples": [
+            "if (false) {\n        var impossible = 'never executed';\n        return impossible + 'code';\n    }",
+            "undefined || null"
+          ]
+        },
+        "identifier_renaming": {
+          "score": 0.1,
+          "matches": 1,
+          "description": "Systematic identifier obfuscation",
+          "examples": [
+            "_0xdead"
+          ]
+        }
+      },
+      "overall_score": 0.4,
+      "is_obfuscated": true,
+      "confidence": 0.4,
+      "patterns_detected": [
+        "dead_code_insertion",
+        "identifier_renaming"
+      ]
+    },
+    "source_metadata": {
+      "source": "synthetic",
+      "sample_id": "synthetic_003",
+      "generated_at": 1756060211.2474334,
+      "description": "Synthetic sample demonstrating obfuscation pattern #3"
+    },
+    "source_url": null
+  },
+  {
+    "filename": "wild_sample_004_2f07bae6.js",
+    "hash": "2f07bae6ccc9153fde016e03ec3d9afe68d0847a32c0d83405bd213b485f6fd8",
+    "size": 113,
+    "classification": {
+      "techniques": {
+        "eval_patterns": {
+          "score": 0.1,
+          "matches": 1,
+          "description": "Dynamic code evaluation patterns",
+          "examples": [
+            "eval("
+          ]
+        }
+      },
+      "overall_score": 0.4,
+      "is_obfuscated": true,
+      "confidence": 0.4,
+      "patterns_detected": [
+        "eval_patterns"
+      ]
+    },
+    "source_metadata": {
+      "source": "synthetic",
+      "sample_id": "synthetic_004",
+      "generated_at": 1756060211.247543,
+      "description": "Synthetic sample demonstrating obfuscation pattern #4"
+    },
+    "source_url": null
+  }
+]

@@ -1,0 +1,287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arachne.dev/schemas/lifter.schema.json",
+  "title": "Bytecode Lifter API Contract",
+  "description": "JSON Schema for BytecodeLifter interface contract validation",
+  "type": "object",
+  "required": ["supportedFormats", "supports", "getMetadata", "parse", "lift"],
+  
+  "properties": {
+    "supportedFormats": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["quickjs", "v8-ignition", "custom-vm"]
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "List of bytecode formats supported by this lifter"
+    },
+    
+    "capabilities": {
+      "type": "object",
+      "properties": {
+        "devirtualization": {
+          "type": "boolean",
+          "description": "Whether this lifter supports VM devirtualization"
+        },
+        "differentialTesting": {
+          "type": "boolean", 
+          "description": "Whether this lifter supports validation against original"
+        },
+        "incrementalLifting": {
+          "type": "boolean",
+          "description": "Whether this lifter can lift individual functions"
+        }
+      },
+      "required": ["devirtualization", "differentialTesting", "incrementalLifting"]
+    }
+  },
+  
+  "definitions": {
+    "LiftResult": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["success", "data"],
+          "properties": {
+            "success": {"const": true},
+            "data": {"type": "object"},
+            "warnings": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          }
+        },
+        {
+          "type": "object", 
+          "required": ["success", "error"],
+          "properties": {
+            "success": {"const": false},
+            "error": {"type": "string"},
+            "partialData": {"type": "object"}
+          }
+        }
+      ]
+    },
+    
+    "BytecodeMetadata": {
+      "type": "object",
+      "required": [
+        "format", "version", "architecture", "endianness",
+        "constantPoolSize", "functionCount", "hasDebugInfo",
+        "customVMDetected", "vmPatterns"
+      ],
+      "properties": {
+        "format": {
+          "type": "string",
+          "enum": ["quickjs", "v8-ignition", "custom-vm"]
+        },
+        "version": {"type": "string"},
+        "architecture": {
+          "type": "string",
+          "enum": ["stack", "register"]
+        },
+        "endianness": {
+          "type": "string", 
+          "enum": ["little", "big"]
+        },
+        "constantPoolSize": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "functionCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hasDebugInfo": {"type": "boolean"},
+        "compressionType": {
+          "type": "string",
+          "enum": ["none", "lz4", "gzip"]
+        },
+        "customVMDetected": {"type": "boolean"},
+        "vmPatterns": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    
+    "BytecodeFunction": {
+      "type": "object",
+      "required": [
+        "startOffset", "endOffset", "parameterCount", 
+        "localCount", "stackDepth", "hasExceptionHandlers",
+        "isGenerator", "isAsync"
+      ],
+      "properties": {
+        "name": {
+          "oneOf": [{"type": "string"}, {"type": "null"}]
+        },
+        "startOffset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "endOffset": {
+          "type": "integer", 
+          "minimum": 0
+        },
+        "parameterCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "localCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stackDepth": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hasExceptionHandlers": {"type": "boolean"},
+        "isGenerator": {"type": "boolean"},
+        "isAsync": {"type": "boolean"},
+        "debugInfo": {
+          "type": "object",
+          "properties": {
+            "lineNumbers": {
+              "type": "array",
+              "items": {"type": "integer", "minimum": 1}
+            },
+            "columnNumbers": {
+              "type": "array", 
+              "items": {"type": "integer", "minimum": 0}
+            },
+            "sourceFile": {"type": "string"}
+          },
+          "required": ["lineNumbers"]
+        }
+      }
+    },
+    
+    "VMAnalysis": {
+      "type": "object",
+      "required": [
+        "vmType", "dispatcherFunctions", "opcodeTable",
+        "virtualRegisters", "stackDepth", "hasEncryptedOpcodes",
+        "confidence", "patterns"
+      ],
+      "properties": {
+        "vmType": {
+          "type": "string",
+          "enum": ["switch-dispatch", "jump-table", "computed-goto", "custom", "unknown"]
+        },
+        "dispatcherFunctions": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/VMDispatcher"}
+        },
+        "opcodeTable": {
+          "type": "object",
+          "patternProperties": {
+            "^[0-9]+$": {"type": "string"}
+          }
+        },
+        "virtualRegisters": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stackDepth": {
+          "type": "integer", 
+          "minimum": 0
+        },
+        "hasEncryptedOpcodes": {"type": "boolean"},
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "patterns": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    
+    "VMDispatcher": {
+      "type": "object",
+      "required": ["address", "signature", "opcodeCount"],
+      "properties": {
+        "address": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "signature": {"type": "string"},
+        "opcodeCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "handlerTable": {
+          "type": "object",
+          "patternProperties": {
+            "^[0-9]+$": {"type": "integer", "minimum": 0}
+          }
+        },
+        "stackEffect": {
+          "type": "object",
+          "patternProperties": {
+            "^[0-9]+$": {"type": "integer"}
+          }
+        }
+      }
+    },
+    
+    "ValidationReport": {
+      "type": "object",
+      "required": [
+        "isValid", "functionMatches", "constantMatches",
+        "controlFlowMatches", "issues", "confidence"
+      ],
+      "properties": {
+        "isValid": {"type": "boolean"},
+        "functionMatches": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {"type": "boolean"}
+          }
+        },
+        "constantMatches": {"type": "boolean"},
+        "controlFlowMatches": {"type": "boolean"},
+        "issues": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/ValidationIssue"}
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        }
+      }
+    },
+    
+    "ValidationIssue": {
+      "type": "object",
+      "required": ["type", "severity", "message"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["semantic", "structural", "performance", "warning"]
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"]
+        },
+        "message": {"type": "string"},
+        "location": {
+          "type": "object",
+          "properties": {
+            "function": {"type": "string"},
+            "instruction": {"type": "integer", "minimum": 0}
+          },
+          "required": ["function", "instruction"]
+        },
+        "suggestion": {"type": "string"}
+      }
+    }
+  }
+}

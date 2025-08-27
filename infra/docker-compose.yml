@@ -1,0 +1,160 @@
+version: '3.8'
+
+services:
+  # Main development environment
+  arachnejs-dev:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      target: development
+    container_name: arachnejs-dev
+    volumes:
+      - ../src:/app/src:cached
+      - ../tests:/app/tests:cached
+      - ../scripts:/app/scripts:cached
+      - ../logs:/app/logs
+      - ../artifacts:/app/artifacts
+      - ../analysis:/app/analysis
+      # Node modules cache
+      - node_modules_cache:/app/node_modules
+    ports:
+      - "3000:3000"  # Development server
+      - "9229:9229"  # Node.js debugging
+    environment:
+      - NODE_ENV=development
+      - DEBUG=arachnejs:*
+      - Z3_PATH=/usr/bin/z3
+    working_dir: /app
+    command: npm run dev
+    stdin_open: true
+    tty: true
+
+  # Production build for testing
+  arachnejs-prod:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      target: production
+    container_name: arachnejs-prod
+    volumes:
+      - ../logs:/app/logs
+      - ../artifacts:/app/artifacts
+      - ../analysis:/app/analysis
+    environment:
+      - NODE_ENV=production
+      - Z3_PATH=/usr/bin/z3
+    profiles:
+      - production
+
+  # Test runner with full test suite
+  arachnejs-test:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      target: tester
+    container_name: arachnejs-test
+    volumes:
+      - ../tests:/app/tests:cached
+      - ../coverage:/app/coverage
+      - ../artifacts/metrics:/app/artifacts/metrics
+    environment:
+      - NODE_ENV=test
+      - CI=true
+    command: |
+      bash -c "
+        npm run test:coverage &&
+        npm run test:mutation &&
+        npm run test:e2e
+      "
+    profiles:
+      - testing
+
+  # Z3 SMT Solver service (for distributed solving)
+  z3-server:
+    image: alpine:3.18
+    container_name: z3-server
+    command: |
+      sh -c "
+        apk add --no-cache z3 socat &&
+        socat TCP-LISTEN:9001,fork,reuseaddr EXEC:'z3 -in'
+      "
+    ports:
+      - "9001:9001"
+    profiles:
+      - solver
+
+  # Monitoring and metrics collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: arachnejs-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus_data:/prometheus
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    profiles:
+      - monitoring
+
+  # Log aggregation
+  loki:
+    image: grafana/loki:2.9.0
+    container_name: arachnejs-loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - loki_data:/loki
+    profiles:
+      - monitoring
+
+  # Grafana dashboard
+  grafana:
+    image: grafana/grafana:10.2.0
+    container_name: arachnejs-grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    profiles:
+      - monitoring
+
+  # Corpus management and fuzzing
+  corpus-manager:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile
+      target: development
+    container_name: arachnejs-corpus
+    volumes:
+      - ../tests/corpus:/app/tests/corpus
+      - ../scripts:/app/scripts:cached
+    environment:
+      - CORPUS_PATH=/app/tests/corpus
+    command: python3 scripts/corpus_manager.py
+    profiles:
+      - corpus
+
+volumes:
+  node_modules_cache:
+    driver: local
+  prometheus_data:
+    driver: local
+  loki_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  default:
+    name: arachnejs-network
+    driver: bridge

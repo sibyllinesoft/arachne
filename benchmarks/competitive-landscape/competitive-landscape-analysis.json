@@ -1,0 +1,304 @@
+{
+  "executedAt": "2025-08-27T16:09:33.519Z",
+  "competitors": [
+    {
+      "name": "Synchrony",
+      "repository": "https://github.com/relative/synchrony",
+      "description": "JavaScript-obfuscator cleaner & deobfuscator with 939+ GitHub stars",
+      "strengths": [
+        "High popularity and active community",
+        "General-purpose deobfuscation capabilities",
+        "Good pattern recognition for common obfuscation",
+        "Reliable for javascript-obfuscator.io patterns"
+      ],
+      "weaknesses": [
+        "Limited advanced analysis capabilities",
+        "Pattern-based approach may miss complex cases",
+        "Manual web interface scalability issues",
+        "No formal verification or constraint solving"
+      ],
+      "supportedTechniques": [
+        "string_array_obfuscation",
+        "identifier_renaming",
+        "control_flow_flattening",
+        "dead_code_insertion"
+      ],
+      "marketPosition": "Market Leader - Most popular general-purpose tool"
+    },
+    {
+      "name": "Webcrack",
+      "repository": "https://github.com/j4k0xb/webcrack",
+      "description": "Specialized for obfuscator.io, unminification and webpack/browserify unpacking",
+      "strengths": [
+        "Excellent obfuscator.io support",
+        "Bundle unpacking capabilities (webpack/browserify)",
+        "Modern TypeScript implementation",
+        "Active development and Node.js 22+ support",
+        "Performance optimizations and safety features"
+      ],
+      "weaknesses": [
+        "Focused primarily on specific obfuscator types",
+        "Less general-purpose than other tools",
+        "Limited academic/research backing",
+        "Newer tool with smaller ecosystem"
+      ],
+      "supportedTechniques": [
+        "string_array_obfuscation",
+        "control_flow_flattening",
+        "identifier_renaming",
+        "bundler_unpacking",
+        "minification_reversal"
+      ],
+      "marketPosition": "Specialized Leader - Best for specific obfuscation types"
+    },
+    {
+      "name": "Restringer",
+      "repository": "https://github.com/PerimeterX/restringer",
+      "description": "PerimeterX's JavaScript deobfuscator with enterprise backing",
+      "strengths": [
+        "Enterprise development and support",
+        "Security-focused approach",
+        "AST-based transformations",
+        "Commercial-grade reliability"
+      ],
+      "weaknesses": [
+        "Less community adoption than Synchrony",
+        "Limited documentation and examples",
+        "Performance reports suggest slower than Webcrack",
+        "Fewer GitHub stars and community contributions"
+      ],
+      "supportedTechniques": [
+        "ast_transformations",
+        "eval_unpacking",
+        "string_obfuscation",
+        "identifier_renaming"
+      ],
+      "marketPosition": "Enterprise Solution - Security-focused commercial backing"
+    },
+    {
+      "name": "UnuglifyJS",
+      "repository": "https://github.com/eth-sri/UnuglifyJS",
+      "description": "Open-source version of JSNice with statistical analysis approach",
+      "strengths": [
+        "Academic research foundation (ETH Zurich)",
+        "Statistical approach to variable naming",
+        "Type inference capabilities",
+        "Research-backed methodologies"
+      ],
+      "weaknesses": [
+        "Primarily focused on variable name recovery",
+        "Limited general deobfuscation capabilities",
+        "Less active development",
+        "Requires more setup and configuration"
+      ],
+      "supportedTechniques": [
+        "identifier_recovery",
+        "type_inference",
+        "statistical_renaming",
+        "minification_reversal"
+      ],
+      "marketPosition": "Academic Solution - Research-focused with specific strengths"
+    },
+    {
+      "name": "De4js",
+      "repository": "https://github.com/lelinhtinh/de4js",
+      "description": "Web-based JavaScript deobfuscator and unpacker",
+      "strengths": [
+        "Easy web-based interface",
+        "Multiple unpacking methods",
+        "Good for quick analysis",
+        "Handles various packer formats"
+      ],
+      "weaknesses": [
+        "Web-based interface limits automation",
+        "Manual process not suitable for batch processing",
+        "Limited advanced analysis features",
+        "Scalability challenges for large-scale use"
+      ],
+      "supportedTechniques": [
+        "eval_unpacking",
+        "array_unpacking",
+        "url_encoding",
+        "packer_formats"
+      ],
+      "marketPosition": "User-Friendly Tool - Best for manual/interactive analysis"
+    },
+    {
+      "name": "ArachneJS",
+      "repository": "local",
+      "description": "Advanced IR-based deobfuscator with constraint solving and formal analysis",
+      "strengths": [
+        "Sophisticated IR-based analysis pipeline",
+        "Z3 SMT solver integration for constraint solving",
+        "Multi-pass optimization with CFG and SSA forms",
+        "Bytecode lifting capabilities (QuickJS/V8)",
+        "Sandboxed execution with comprehensive tracing",
+        "Property-based testing and validation framework",
+        "Academic-quality analysis architecture"
+      ],
+      "weaknesses": [
+        "Early development stage (v0.1.0)",
+        "Complex architecture may impact initial performance",
+        "Requires more setup (Z3, Python, Docker)",
+        "Limited real-world testing and validation",
+        "No established community or ecosystem"
+      ],
+      "supportedTechniques": [
+        "ir_based_analysis",
+        "constraint_solving",
+        "symbolic_execution",
+        "bytecode_lifting",
+        "cfg_analysis",
+        "ssa_optimization",
+        "property_based_validation"
+      ],
+      "marketPosition": "Innovation Leader - Advanced academic approach with commercial potential"
+    }
+  ],
+  "samples": [
+    {
+      "name": "wild_sample_000_d5099032.js",
+      "filepath": "/home/nathan/Projects/arachne/tests/corpus/wild_samples/wild_sample_000_d5099032.js",
+      "size": 165,
+      "hash": "d50990325eb8e48a45934f3202d81efad05e0e44628da9ca6a78b0465ee69b0f",
+      "content": "var _0xc4f8=['test','function','hello','world','console','log'];\nfunction _0x1234(){\n    return _0xc4f8[0x0] + _0xc4f8[0x1];\n}\n_0xc4f8[0x4][_0xc4f8[0x5]](_0x1234());",
+      "obfuscationTechniques": [
+        "string_array_obfuscation",
+        "identifier_renaming"
+      ]
+    },
+    {
+      "name": "wild_sample_001_b19092e5.js",
+      "filepath": "/home/nathan/Projects/arachne/tests/corpus/wild_samples/wild_sample_001_b19092e5.js",
+      "size": 320,
+      "hash": "b19092e50eec680c191465cca5b5ba9d6d4d5e3cc8c75892f80441bc9d52bf48",
+      "content": "var _0x1234 = '1|2|3|0|4'.split('|'), _0x5678 = 0x0;\nwhile (true) {\n    switch (_0x1234[_0x5678++]) {\n        case '0': console.log('test'); continue;\n        case '1': var x = 10; continue;\n        case '2': var y = 20; continue;\n        case '3': var z = x + y; continue;\n        case '4': return z;\n    }\n    break;\n}",
+      "obfuscationTechniques": [
+        "string_array_obfuscation",
+        "control_flow_flattening",
+        "identifier_renaming"
+      ]
+    },
+    {
+      "name": "wild_sample_002_7657048a.js",
+      "filepath": "/home/nathan/Projects/arachne/tests/corpus/wild_samples/wild_sample_002_7657048a.js",
+      "size": 332,
+      "hash": "7657048a9aaf562c9582091ec98ae3d86d4b6dc7cda7a69f01b37e35518d24f9",
+      "content": "function vm(bytecode) {\n    var pc = 0, stack = [], vars = {};\n    while (pc < bytecode.length) {\n        switch (bytecode[pc++]) {\n            case 0x01: stack.push(bytecode[pc++]); break;\n            case 0x02: console.log(stack.pop()); break;\n            case 0x03: return;\n        }\n    }\n}\nvm([0x01, 0x48656c6c6f, 0x02, 0x03]);",
+      "obfuscationTechniques": [
+        "vm_based_obfuscation"
+      ]
+    },
+    {
+      "name": "wild_sample_003_1e2a2192.js",
+      "filepath": "/home/nathan/Projects/arachne/tests/corpus/wild_samples/wild_sample_003_1e2a2192.js",
+      "size": 187,
+      "hash": "1e2a219276f79da3b288e24bdf0eb011e493c345f68bbb9339436aa49d7cd267",
+      "content": "var _0xdead = function() {\n    if (false) {\n        var impossible = 'never executed';\n        return impossible + 'code';\n    }\n    return 'real code';\n};\nundefined || null && _0xdead();",
+      "obfuscationTechniques": [
+        "dead_code_insertion",
+        "identifier_renaming"
+      ]
+    },
+    {
+      "name": "wild_sample_004_2f07bae6.js",
+      "filepath": "/home/nathan/Projects/arachne/tests/corpus/wild_samples/wild_sample_004_2f07bae6.js",
+      "size": 113,
+      "hash": "2f07bae6ccc9153fde016e03ec3d9afe68d0847a32c0d83405bd213b485f6fd8",
+      "content": "var _0xeval = String.fromCharCode(99,111,110,115,111,108,101,46,108,111,103);\neval(_0xeval + '(\"Hello World\");');",
+      "obfuscationTechniques": [
+        "eval_patterns"
+      ]
+    }
+  ],
+  "analysis": {
+    "marketOverview": "The JavaScript deobfuscation market is dominated by pattern-matching tools like Synchrony (939 GitHub stars) and Webcrack, which excel at handling common obfuscation from popular tools like javascript-obfuscator.io. Enterprise solutions like Restringer provide commercial reliability, while academic tools like UnuglifyJS focus on statistical analysis for variable name recovery.\n\n**Market Segments**:\n- **General-Purpose Leaders**: Synchrony, Webcrack (high adoption, broad technique support)\n- **Specialized Solutions**: De4js (web-based), UnuglifyJS (statistical analysis)  \n- **Enterprise Tools**: Restringer (security-focused, commercial backing)\n- **Innovation Category**: ArachneJS (advanced analysis, research-driven)\n\n**Technology Trends**: \n- Pattern-matching approaches dominate current market\n- Growing need for handling AI-generated and sophisticated obfuscation\n- Academic research in formal methods and constraint solving showing promise\n- LLM integration emerging as new frontier (GPT-4 showing 75%+ success rates)",
+    "techniqueCoverage": {
+      "string_array_obfuscation": [
+        "Synchrony",
+        "Webcrack"
+      ],
+      "identifier_renaming": [
+        "Synchrony",
+        "Webcrack",
+        "Restringer"
+      ],
+      "control_flow_flattening": [
+        "Synchrony",
+        "Webcrack"
+      ],
+      "dead_code_insertion": [
+        "Synchrony"
+      ],
+      "bundler_unpacking": [
+        "Webcrack"
+      ],
+      "minification_reversal": [
+        "Webcrack",
+        "UnuglifyJS"
+      ],
+      "ast_transformations": [
+        "Restringer"
+      ],
+      "eval_unpacking": [
+        "Restringer",
+        "De4js"
+      ],
+      "string_obfuscation": [
+        "Restringer"
+      ],
+      "identifier_recovery": [
+        "UnuglifyJS"
+      ],
+      "type_inference": [
+        "UnuglifyJS"
+      ],
+      "statistical_renaming": [
+        "UnuglifyJS"
+      ],
+      "array_unpacking": [
+        "De4js"
+      ],
+      "url_encoding": [
+        "De4js"
+      ],
+      "packer_formats": [
+        "De4js"
+      ],
+      "ir_based_analysis": [
+        "ArachneJS"
+      ],
+      "constraint_solving": [
+        "ArachneJS"
+      ],
+      "symbolic_execution": [
+        "ArachneJS"
+      ],
+      "bytecode_lifting": [
+        "ArachneJS"
+      ],
+      "cfg_analysis": [
+        "ArachneJS"
+      ],
+      "ssa_optimization": [
+        "ArachneJS"
+      ],
+      "property_based_validation": [
+        "ArachneJS"
+      ],
+      "eval_patterns": [],
+      "minification": [],
+      "packer_obfuscation": [],
+      "vm_based_obfuscation": []
+    },
+    "arachneJSPosition": "**Current Position**: ArachneJS is positioned as an innovation leader with advanced technical capabilities, but faces market adoption challenges against established tools like Synchrony, Webcrack, ArachneJS.\n\n**Competitive Advantages**:\n- **Technical Sophistication**: IR-based analysis with CFG/SSA optimization surpasses pattern-matching approaches\n- **Formal Methods**: Z3 constraint solving enables symbolic execution beyond heuristic tools  \n- **Comprehensive Analysis**: Multi-modal bytecode lifting and sandboxed execution provide deeper insights\n- **Research Foundation**: Academic-quality architecture positions for handling advanced obfuscation techniques\n\n**Market Challenges**:\n- **Adoption Gap**: Synchrony (939 stars) and Webcrack have established communities\n- **Complexity Barrier**: Advanced architecture may deter casual users seeking simple solutions\n- **Performance Validation**: Need to prove performance benefits of sophisticated approach\n- **Ecosystem Development**: Limited integrations, documentation, and community resources",
+    "recommendations": [
+      "Establish performance benchmarks demonstrating measurable advantages over simpler approaches",
+      "Focus on unique value propositions: constraint solving, bytecode analysis, formal verification",
+      "Target advanced use cases where pattern-matching tools fail: sophisticated malware, AI-generated obfuscation",
+      "Build developer-friendly interfaces and integrations while maintaining technical depth",
+      "Collaborate with security research community to validate academic approach benefits",
+      "Create comprehensive documentation and tutorials showcasing unique capabilities"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+# Requirements for ArachneJS sample collection script
+# Install with: pip install -r requirements.txt
+
+# HTTP client libraries
+aiohttp>=3.9.0
+requests>=2.31.0
+
+# File I/O
+aiofiles>=23.2.0
+
+# HTML parsing  
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Optional GitHub token support
+# Set GITHUB_TOKEN environment variable for enhanced GitHub API access
+
+# For syntax validation (requires Node.js installed)
+# Used by _is_valid_javascript method in SampleCollector

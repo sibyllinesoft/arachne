@@ -1,0 +1,319 @@
+{
+  "originalCode": "function _0x1234(){var _0xa=['log','Hello World!'];return _0xa;}var _0xb=_0x1234();console[_0xb[0]](_0xb[1]);",
+  "finalCode": "console.log('Hello World!');",
+  "passes": [
+    {
+      "name": "StringDecodingPass",
+      "inputIR": [
+        {
+          "type": "Program",
+          "id": "root",
+          "body": []
+        }
+      ],
+      "outputIR": [
+        {
+          "type": "Program",
+          "id": "root",
+          "body": []
+        }
+      ],
+      "metrics": {
+        "executionTime": 45,
+        "nodesRemoved": 12,
+        "nodesAdded": 3,
+        "nodesModified": 8,
+        "complexity": 15
+      },
+      "codeSnapshot": "function _0x1234(){var _0xa=['log','Hello World!'];return _0xa;}var _0xb=_0x1234();console[_0xb[0]](_0xb[1]);",
+      "cfg": {
+        "nodes": [
+          {
+            "id": "entry",
+            "type": "entry",
+            "statements": [],
+            "predecessors": [],
+            "successors": ["block_1"],
+            "dominance": {
+              "dominators": [],
+              "dominanceFrontier": []
+            }
+          },
+          {
+            "id": "block_1",
+            "type": "basic",
+            "statements": [
+              {
+                "type": "FunctionDeclaration",
+                "id": "func_1"
+              }
+            ],
+            "predecessors": ["entry"],
+            "successors": ["exit"],
+            "dominance": {
+              "dominators": ["entry"],
+              "dominanceFrontier": []
+            }
+          },
+          {
+            "id": "exit",
+            "type": "exit",
+            "statements": [],
+            "predecessors": ["block_1"],
+            "successors": [],
+            "dominance": {
+              "dominators": ["entry", "block_1"],
+              "dominanceFrontier": []
+            }
+          }
+        ],
+        "edges": [
+          {
+            "from": "entry",
+            "to": "block_1",
+            "type": "unconditional"
+          },
+          {
+            "from": "block_1",
+            "to": "exit",
+            "type": "unconditional"
+          }
+        ],
+        "entry": "entry",
+        "exit": "exit"
+      }
+    },
+    {
+      "name": "ConstantPropagationPass",
+      "inputIR": [
+        {
+          "type": "Program",
+          "id": "root",
+          "body": []
+        }
+      ],
+      "outputIR": [
+        {
+          "type": "Program",
+          "id": "root",
+          "body": []
+        }
+      ],
+      "metrics": {
+        "executionTime": 32,
+        "nodesRemoved": 8,
+        "nodesAdded": 1,
+        "nodesModified": 5,
+        "complexity": 12
+      },
+      "codeSnapshot": "var _0xa=['log','Hello World!'];console[_0xa[0]](_0xa[1]);",
+      "cfg": {
+        "nodes": [
+          {
+            "id": "entry",
+            "type": "entry",
+            "statements": [],
+            "predecessors": [],
+            "successors": ["block_1"],
+            "dominance": {
+              "dominators": [],
+              "dominanceFrontier": []
+            }
+          },
+          {
+            "id": "block_1",
+            "type": "basic",
+            "statements": [
+              {
+                "type": "VariableDeclaration",
+                "id": "var_1"
+              },
+              {
+                "type": "ExpressionStatement",
+                "id": "expr_1"
+              }
+            ],
+            "predecessors": ["entry"],
+            "successors": ["exit"],
+            "dominance": {
+              "dominators": ["entry"],
+              "dominanceFrontier": []
+            }
+          },
+          {
+            "id": "exit",
+            "type": "exit",
+            "statements": [],
+            "predecessors": ["block_1"],
+            "successors": [],
+            "dominance": {
+              "dominators": ["entry", "block_1"],
+              "dominanceFrontier": []
+            }
+          }
+        ],
+        "edges": [
+          {
+            "from": "entry",
+            "to": "block_1",
+            "type": "unconditional"
+          },
+          {
+            "from": "block_1",
+            "to": "exit",
+            "type": "unconditional"
+          }
+        ],
+        "entry": "entry",
+        "exit": "exit"
+      }
+    },
+    {
+      "name": "DeadCodeEliminationPass",
+      "inputIR": [
+        {
+          "type": "Program",
+          "id": "root",
+          "body": []
+        }
+      ],
+      "outputIR": [
+        {
+          "type": "Program",
+          "id": "root",
+          "body": []
+        }
+      ],
+      "metrics": {
+        "executionTime": 28,
+        "nodesRemoved": 4,
+        "nodesAdded": 0,
+        "nodesModified": 2,
+        "complexity": 8
+      },
+      "codeSnapshot": "console.log('Hello World!');",
+      "cfg": {
+        "nodes": [
+          {
+            "id": "entry",
+            "type": "entry",
+            "statements": [],
+            "predecessors": [],
+            "successors": ["block_1"],
+            "dominance": {
+              "dominators": [],
+              "dominanceFrontier": []
+            }
+          },
+          {
+            "id": "block_1",
+            "type": "basic",
+            "statements": [
+              {
+                "type": "ExpressionStatement",
+                "id": "expr_1"
+              }
+            ],
+            "predecessors": ["entry"],
+            "successors": ["exit"],
+            "dominance": {
+              "dominators": ["entry"],
+              "dominanceFrontier": []
+            }
+          },
+          {
+            "id": "exit",
+            "type": "exit",
+            "statements": [],
+            "predecessors": ["block_1"],
+            "successors": [],
+            "dominance": {
+              "dominators": ["entry", "block_1"],
+              "dominanceFrontier": []
+            }
+          }
+        ],
+        "edges": [
+          {
+            "from": "entry",
+            "to": "block_1",
+            "type": "unconditional"
+          },
+          {
+            "from": "block_1",
+            "to": "exit",
+            "type": "unconditional"
+          }
+        ],
+        "entry": "entry",
+        "exit": "exit"
+      }
+    }
+  ],
+  "cfg": {
+    "nodes": [
+      {
+        "id": "entry",
+        "type": "entry",
+        "statements": [],
+        "predecessors": [],
+        "successors": ["block_1"],
+        "dominance": {
+          "dominators": [],
+          "dominanceFrontier": []
+        }
+      },
+      {
+        "id": "block_1",
+        "type": "basic",
+        "statements": [
+          {
+            "type": "ExpressionStatement",
+            "id": "expr_1"
+          }
+        ],
+        "predecessors": ["entry"],
+        "successors": ["exit"],
+        "dominance": {
+          "dominators": ["entry"],
+          "dominanceFrontier": []
+        }
+      },
+      {
+        "id": "exit",
+        "type": "exit",
+        "statements": [],
+        "predecessors": ["block_1"],
+        "successors": [],
+        "dominance": {
+          "dominators": ["entry", "block_1"],
+          "dominanceFrontier": []
+        }
+      }
+    ],
+    "edges": [
+      {
+        "from": "entry",
+        "to": "block_1",
+        "type": "unconditional"
+      },
+      {
+        "from": "block_1",
+        "to": "exit",
+        "type": "unconditional"
+      }
+    ],
+    "entry": "entry",
+    "exit": "exit"
+  },
+  "metadata": {
+    "timestamp": "2024-01-15T10:30:45.123Z",
+    "version": "0.1.0",
+    "inputSize": 105,
+    "outputSize": 25,
+    "totalPasses": 3,
+    "totalExecutionTime": 105,
+    "success": true,
+    "errors": []
+  }
+}

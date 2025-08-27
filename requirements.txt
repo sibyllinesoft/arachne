@@ -1,0 +1,59 @@
+# Core Python dependencies for ArachneJS test harness and analysis
+# Python 3.11 required
+
+# Z3 SMT Solver - constraint solving and symbolic execution
+z3-solver==4.12.2.0
+
+# Testing and property-based testing
+pytest==7.4.3
+pytest-xdist==3.5.0
+pytest-cov==4.1.0
+hypothesis==6.92.1
+mutmut==2.4.3
+
+# Data manipulation and analysis
+pandas==2.1.4
+numpy==1.26.2
+scipy==1.11.4
+
+# JSON schema validation for contracts
+jsonschema==4.20.0
+cerberus==1.3.5
+
+# Performance measurement and benchmarking
+psutil==5.9.6
+memory-profiler==0.61.0
+py-spy==0.3.14
+
+# Corpus management and fuzzing
+afl-utils==1.34a
+atheris==2.3.0
+
+# Logging and monitoring  
+structlog==23.2.0
+prometheus-client==0.19.0
+
+# CLI and utilities
+click==8.1.7
+rich==13.7.0
+tqdm==4.66.1
+
+# Network and HTTP testing
+requests==2.31.0
+httpx==0.25.2
+
+# File format handling
+pyyaml==6.0.1
+toml==0.10.2
+
+# Process management for sandboxing
+docker==6.1.3
+subprocess-tee==0.4.1
+
+# Development and debugging
+ipdb==0.13.13
+line-profiler==4.1.1
+
+# Static analysis helpers
+ast-decompiler==1.0.0
+astunparse==1.6.3

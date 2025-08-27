@@ -1,0 +1,72 @@
+{
+  "type": "Program",
+  "body": [
+    {
+      "type": "FunctionDeclaration",
+      "id": {
+        "type": "Identifier",
+        "name": "main"
+      },
+      "params": [],
+      "body": {
+        "type": "BlockStatement",
+        "body": [
+          {
+            "type": "ExpressionStatement",
+            "expression": {
+              "type": "BinaryExpression",
+              "left": {
+                "type": "Identifier", 
+                "name": "accumulator_0"
+              },
+              "operator": "=",
+              "right": {
+                "type": "Literal",
+                "value": "hello"
+              }
+            }
+          },
+          {
+            "type": "ExpressionStatement", 
+            "expression": {
+              "type": "BinaryExpression",
+              "left": {
+                "type": "Identifier",
+                "name": "register_1" 
+              },
+              "operator": "=",
+              "right": {
+                "type": "Identifier",
+                "name": "accumulator_0"
+              }
+            }
+          },
+          {
+            "type": "ExpressionStatement",
+            "expression": {
+              "type": "BinaryExpression", 
+              "left": {
+                "type": "Identifier",
+                "name": "accumulator_2"
+              },
+              "operator": "=",
+              "right": {
+                "type": "Literal", 
+                "value": 42.0
+              }
+            }
+          },
+          {
+            "type": "ReturnStatement",
+            "argument": {
+              "type": "Identifier",
+              "name": "accumulator_2" 
+            }
+          }
+        ]
+      },
+      "generator": false,
+      "async": false
+    }
+  ]
+}

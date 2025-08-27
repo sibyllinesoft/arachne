@@ -1,0 +1,24 @@
+{
+  "name": "V8 Simple Test",
+  "description": "Basic V8 Ignition bytecode with constant loading and return",
+  "bytecodeFile": "v8-simple.bin",
+  "expectedFormat": "v8-ignition",
+  "goldenFile": "v8-simple.golden.json",
+  "featureFlags": ["--enable-v8"],
+  "expectedWarnings": [
+    "V8 conversion is experimental",
+    "V8 Ignition lifter is experimental"
+  ],
+  "testMetadata": {
+    "architecture": "register",
+    "functionCount": 1,
+    "constantPoolSize": 2,
+    "hasDebugInfo": false
+  },
+  "validationRules": {
+    "allowExperimentalFeatures": true,
+    "requireExactMatch": false,
+    "tolerateMinorDifferences": true
+  },
+  "tags": ["v8", "ignition", "experimental", "register-vm"]
+}

@@ -1,0 +1,84 @@
+{
+  "testSuite": "ArachneJS Phase 5 Differential Tests",
+  "version": "1.0.0",
+  "testCases": [
+    {
+      "name": "quickjs_basic_arithmetic",
+      "description": "Basic arithmetic operations in QuickJS bytecode",
+      "bytecodeFile": "./fixtures/quickjs_arithmetic.qbc",
+      "expectedFormat": "quickjs",
+      "timeout": 5000,
+      "tags": ["quickjs", "arithmetic", "basic"],
+      "goldenFile": "quickjs_arithmetic.golden.json",
+      "performanceBaseline": {
+        "parseTimeMs": 50,
+        "liftTimeMs": 100,
+        "memoryUsageMB": 10,
+        "irNodeCount": 25,
+        "timestamp": "2024-01-01T00:00:00Z"
+      }
+    },
+    {
+      "name": "quickjs_control_flow",
+      "description": "Control flow structures (if/while/for) in QuickJS",
+      "bytecodeFile": "./fixtures/quickjs_control_flow.qbc",
+      "expectedFormat": "quickjs",
+      "timeout": 10000,
+      "tags": ["quickjs", "control-flow", "complex"],
+      "goldenFile": "quickjs_control_flow.golden.json",
+      "performanceBaseline": {
+        "parseTimeMs": 75,
+        "liftTimeMs": 200,
+        "memoryUsageMB": 15,
+        "irNodeCount": 50,
+        "timestamp": "2024-01-01T00:00:00Z"
+      }
+    },
+    {
+      "name": "quickjs_vm_obfuscated",
+      "description": "VM-obfuscated QuickJS bytecode with switch dispatch",
+      "bytecodeFile": "./fixtures/quickjs_vm_obfuscated.qbc",
+      "expectedFormat": "quickjs",
+      "timeout": 30000,
+      "tags": ["quickjs", "vm-obfuscation", "devirtualization"],
+      "goldenFile": "quickjs_vm_obfuscated.golden.json",
+      "performanceBaseline": {
+        "parseTimeMs": 200,
+        "liftTimeMs": 1000,
+        "memoryUsageMB": 50,
+        "irNodeCount": 150,
+        "timestamp": "2024-01-01T00:00:00Z"
+      }
+    },
+    {
+      "name": "v8_basic_function",
+      "description": "Basic V8 Ignition function (feature-flagged)",
+      "bytecodeFile": "./fixtures/v8_basic_function.bin",
+      "expectedFormat": "v8-ignition",
+      "timeout": 5000,
+      "tags": ["v8", "ignition", "basic", "feature-flagged"],
+      "goldenFile": "v8_basic_function.golden.json"
+    }
+  ],
+  "globalSettings": {
+    "defaultTimeout": 15000,
+    "maxMemoryUsageMB": 100,
+    "enablePerformanceTracking": true,
+    "enableSemanticValidation": true,
+    "goldenFileUpdateMode": false
+  },
+  "devirtualizationTargets": {
+    "minimumSuccessRate": 0.60,
+    "commonObfuscators": [
+      "javascript-obfuscator",
+      "jfuscator",
+      "jscrambler",
+      "webpack-obfuscator"
+    ],
+    "vmPatterns": [
+      "switch-dispatch",
+      "jump-table",
+      "custom-vm"
+    ]
+  }
+}
