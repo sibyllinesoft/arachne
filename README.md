@@ -60,7 +60,7 @@ ArachneJS is a sophisticated JavaScript deobfuscation tool that goes far beyond 
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/arachnejs/deobfuscator.git
+git clone https://github.com/sibyllinesoft/arachne.git
 cd arachne
 
 # 2. Install dependencies
@@ -78,7 +78,7 @@ node dist/cli/index.js deobfuscate test.js
 
 ```bash
 # Run with Docker (includes all dependencies)
-docker run -v $(pwd):/workspace arachnejs/deobfuscator deobfuscate input.js
+docker run -v $(pwd):/workspace sibyllinesoft/arachne deobfuscate input.js
 ```
 
 ## 🔥 Examples
@@ -331,8 +331,8 @@ MIT License - see [LICENSE](./LICENSE) file for details.
 ## 🔗 Links
 
 - [Documentation](./docs/)
-- [GitHub Repository](https://github.com/arachnejs/deobfuscator)
-- [Issue Tracker](https://github.com/arachnejs/deobfuscator/issues)
+- [GitHub Repository](https://github.com/sibyllinesoft/arachne)
+- [Issue Tracker](https://github.com/sibyllinesoft/arachne/issues)
 - [Research Papers](./docs/research.md)
 
 ---
