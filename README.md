@@ -56,89 +56,42 @@ ArachneJS is a sophisticated JavaScript deobfuscation tool that goes far beyond 
 - **Python**: 3.11+ (optional, for advanced features)  
 - **Z3 Solver**: (optional, for constraint-based analysis)
 
-### 5-Minute Installation
+### Quick Installation
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/sibyllinesoft/arachne.git
-cd arachne
-
-# 2. Install dependencies
-npm install
-
-# 3. Build the project
-npm run build
-
-# 4. Test with a simple example
-echo "var _0x123 = 'hello'; console.log(_0x123);" > test.js
-node dist/cli/index.js deobfuscate test.js
+cd arachne && npm install && npm run build
+echo "var _0x123='Hello'; console.log(_0x123);" > test.js
+node dist/cli/index.js analyze test.js
 ```
 
-### Docker Quick Start
-
-```bash
-# Run with Docker (includes all dependencies)
-docker run -v $(pwd):/workspace sibyllinesoft/arachne deobfuscate input.js
-```
+**→ [Complete Installation Guide](./docs/getting-started.md)**
 
 ## 🔥 Examples
 
-### Basic Deobfuscation
+### Transform Obfuscated Code
 
 ```bash
-# Deobfuscate a file with string array unpacking
-node dist/cli/index.js deobfuscate obfuscated.js -o clean.js
+# Simple deobfuscation
+node dist/cli/index.js analyze obfuscated.js -o clean.js
 
-# With verbose output to see the analysis process
-node dist/cli/index.js deobfuscate obfuscated.js -v -o clean.js
+# Advanced analysis with constraint solving
+node dist/cli/index.js analyze complex.js -z --verbose
 ```
 
-**Input (Complex Obfuscation):**
+**Obfuscated Input:**
 ```javascript
-var _0x4f2a=['test','hello','world'];
-var _0x1b3c=function(a,b){a=a-0x0;var _0x2e4d=_0x4f2a[a];return _0x2e4d;};
-(function(_0x5a3b,_0x6c4d){var _0x7e5f=_0x1b3c;while(!![]){try{var _0x8g6h=-parseInt(_0x7e5f(0x0))/0x1;
-if(_0x8g6h===_0x6c4d)break;else _0x5a3b['push'](_0x5a3b['shift']());}
-catch(_0x9h7i){_0x5a3b['push'](_0x5a3b['shift']());}}}(_0x4f2a,0x12345));
-var message=_0x1b3c(0x1)+' '+_0x1b3c(0x2);console.log(message);
+var _0x4f2a=['hello','world'];
+var _0x1b3c=function(a,b){return _0x4f2a[a-0x0];};
+console.log(_0x1b3c(0x0)+' '+_0x1b3c(0x1));
 ```
 
-**Output (ArachneJS):**
+**ArachneJS Output:**
 ```javascript
-// IR-based analysis reconstructs the original logic
-var message = 'hello' + ' ' + 'world';
-console.log(message);
+console.log('hello world');
 ```
 
-**What Other Tools Produce:**
-```javascript
-// Synchrony/Webcrack: Fails to deobfuscate, outputs mangled code
-var _0x1b3c=function(a,b){a=a-0x0;var _0x2e4d=_0x4f2a[a];return _0x2e4d;};
-// ... unchanged obfuscated code
-```
-
-### Advanced Analysis
-
-```bash
-# Deep analysis with IR dump and constraint solving
-node dist/cli/index.js analyze input.js --dump-ir --enable-z3 --report analysis.json
-
-# Bytecode analysis (QuickJS)
-node dist/cli/index.js lift bytecode.bin --format quickjs --analyze
-
-# Sandboxed execution with tracing
-node dist/cli/index.js run suspicious.js --sandbox --trace --timeout 30s
-```
-
-### Batch Processing
-
-```bash
-# Process multiple files
-node dist/cli/index.js batch-deobfuscate ./obfuscated_files/ --output ./clean/
-
-# Generate comparative analysis
-npm run benchmark -- --input samples/ --compare-with synchrony,webcrack
-```
+**→ [Complete Examples & Usage Guide](./docs/usage-guide.md)**
 
 ## 🧠 Why ArachneJS?
 
@@ -328,12 +281,13 @@ We welcome contributions from the community!
 
 MIT License - see [LICENSE](./LICENSE) file for details.
 
-## 🔗 Links
+## 📚 Documentation
 
-- [Documentation](./docs/)
-- [GitHub Repository](https://github.com/sibyllinesoft/arachne)
-- [Issue Tracker](https://github.com/sibyllinesoft/arachne/issues)
-- [Research Papers](./docs/research.md)
+- **[Getting Started](./docs/getting-started.md)** - Installation and first steps
+- **[Usage Guide](./docs/usage-guide.md)** - Complete examples and advanced features
+- **[API Reference](./docs/api.md)** - Programmatic usage and integration
+- **[Architecture](./docs/architecture.md)** - Technical deep dive
+- **[GitHub Repository](https://github.com/sibyllinesoft/arachne)** - Source code and issues
 
 ---
 
